@@ -4,14 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatApps"
-        
+        xmlns:viewmodel ="clr-namespace:ChatClient.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" 
-        Height="450" 
-        Width="800">
+        Title="MainWindow" Height="450" Width="800">
 
-    <Window.DataContext>
-        <viewmodel:MainViewModel/>
+    <Window.DataContext >
+        <viewmodel:MainViewModel />
     </Window.DataContext>
     
     <Grid>
@@ -21,10 +19,12 @@
         </Grid.ColumnDefinitions>
         <DockPanel>
             <TextBox Height="25"
-                     DockPanel.Dock="Top" />
+                     DockPanel.Dock="Top" 
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Height="25"
                     DockPanel.Dock="Top"
-                    Content="Connect" Click="Button_Click" />
+                    Content="Connect" Click="Button_Click"
+                    Command="{Binding ConnectToServerCommand}"/>
             <ListView />
         </DockPanel>
 
