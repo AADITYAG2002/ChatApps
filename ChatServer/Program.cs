@@ -20,7 +20,22 @@ namespace ChatServer
                 _users.Add(client);
 
                 /* Broadcast connection to server */
+                BroadcastConnection();
+            }
+        }
 
+        static void BroadcastConnection()
+        {
+            foreach (var user in _users)
+            {
+                foreach (var usr in _users)
+                {
+                    var braodcastPacket = new PacketBuilder();
+                    broadcastPacket.WriteOpCode(1);
+                    broadcastPacket.WriteMessage(usr.Username);
+                    broadcastPacket.WriteMessage(usr.UID.ToString());
+                    user.ClientSocket.Client.Send(broadcastPacket.GetPacketBytes());
+                }
             }
         }
     }
