@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace ChatClient.MVVM.ViewModel
 {
-    internal class MainViewModel
+    class MainViewModel
     {
         public RelayCommand ConnectToServerCommand { get; set; }
         
+        public string Username { get; set; }
         private Server _server;
         public MainViewModel()
         { 
             _server =new Server();
-            ConnectToServerCommand =new RelayCommand(o=> _server.ConnectToServer());
+            ConnectToServerCommand =new RelayCommand(o => _server.ConnectToServer(Username), o => !string.IsNullOrEmpty(Username));
         }
     }
 }
