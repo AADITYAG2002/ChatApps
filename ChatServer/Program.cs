@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Linq;
+using ChatServer.Net.IO;
 
 namespace ChatServer
 {
     class Program
     {
         static List<Client> _users;
-        internal static TcpListener _listener;
+        static TcpListener _listener;
         static void Main(string[] args)
         {
             _users = new List<Client>();
@@ -30,13 +33,37 @@ namespace ChatServer
             {
                 foreach (var usr in _users)
                 {
-                    var braodcastPacket = new PacketBuilder();
+                    var broadcastPacket = new PacketBuilder();
                     broadcastPacket.WriteOpCode(1);
                     broadcastPacket.WriteMessage(usr.Username);
                     broadcastPacket.WriteMessage(usr.UID.ToString());
                     user.ClientSocket.Client.Send(broadcastPacket.GetPacketBytes());
                 }
             }
+        }
+        public static void BroadcastMessage(string message)
+        {
+            foreach(var user in _users)
+            {
+                var msgPacket = new PacketBuilder();
+                msgPacket.WriteOpCode(5);
+                msgPacket.WriteMessage(message);
+                user.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
+            }
+        }
+
+        public static void BroadcastDisconnect(string uid)
+        {
+            var disconnectedUser = _users.Where(x => x.UID.ToString() == uid).FirstOrDefault();
+            _users.Remove(disconnectedUser);
+            foreach (var user in _users)
+            {
+                var msgPacket = new PacketBuilder();
+                msgPacket.WriteOpCode(10);
+                msgPacket.WriteMessage(uid);
+                user.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
+            }
+            BroadcastMessage($"[{disconnectedUser.Username}] Disconnected");
         }
     }
 }
