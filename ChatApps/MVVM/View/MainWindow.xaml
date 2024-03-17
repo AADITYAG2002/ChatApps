@@ -34,12 +34,12 @@
                         <TextBlock Text="{Binding Username}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                </ListView>
+            </ListView>
         </DockPanel>
 
         <StackPanel Grid.Column="1">
             <ListView Height="380"
-                      ItemsSource="{Binding Message}"/>
+                      ItemsSource="{Binding Messages}"/>
 
             <StackPanel Orientation="Horizontal">
                 <TextBox Height="55"

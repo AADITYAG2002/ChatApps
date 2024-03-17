@@ -28,7 +28,7 @@ namespace ChatClient.MVVM.ViewModel
         { 
             Users = new ObservableCollection<UserModel>();
             Messages = new ObservableCollection<string>();
-            _server =new Server();
+            _server = new Server();
             _server.connectedEvent += UserConnected;
             _server.msgReceivedEvent += MessageReceived;
             _server.userDisconnectEvent += RemoveUser;
