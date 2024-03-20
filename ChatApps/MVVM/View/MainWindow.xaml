@@ -6,9 +6,13 @@
         xmlns:local="clr-namespace:ChatApps" 
         xmlns:viewmodel="clr-namespace:ChatClient.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Chat App" 
         Height="450" 
-        Width="800">
+        Width="800"
+        Background="#36393f"
+        WindowStyle="SingleBorderWindow"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip">
 
     <Window.DataContext >
         <viewmodel:MainViewModel />
