@@ -84,11 +84,14 @@
             <Button Height="30"
                     Background="Transparent"
                     VerticalAlignment="Bottom"
+                    BorderThickness="0"
                     Content="Connect"
                     Foreground="Gray"
                     FontWeight="Bold"
                     Click="ButtonConnect_Click"
                     Command="{Binding ConnectToServerCommand}"/>
+            
+            
 
             <Label Content="Contacts"
                    VerticalAlignment="Center"
@@ -146,6 +149,7 @@
                          Height="50"
                          Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
                          Margin="8,0,8,0"
+                         Grid.ColumnSpan="2"
                          BorderBrush="#2F3136"
                          BorderThickness="2,2,2,2"
                          Background="Transparent"
@@ -165,7 +169,7 @@
                             Background="Transparent"
                             Foreground="#8a7abf"
                             Content="⮞"
-                            Command="{Binding SendMessageCommand}"/>
+                            Command="{Binding SendMessageCommand}" BorderBrush="#00FFFEFE"/>
                 </StackPanel>
             </Grid>
         </Grid>
